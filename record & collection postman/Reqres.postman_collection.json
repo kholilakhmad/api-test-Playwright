@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "72693b3b-f0d0-4952-8ff8-43a441d834b8",
+		"name": "Reqres",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "19688449",
+		"_collection_link": "https://planetary-astronaut-326271.postman.co/workspace/APIs-Reqres~9a2cda36-9145-440e-a104-2b69e2192c10/collection/19688449-72693b3b-f0d0-4952-8ff8-43a441d834b8?action=share&source=collection_link&creator=19688449"
+	},
+	"item": [
+		{
+			"name": "GET List Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://reqres.in/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has the correct schema\",  ()=> {",
+							"    pm.response.to.have.jsonSchema({",
+							"        type: \"object\",",
+							"        required: [\"name\", \"job\", \"updatedAt\"],",
+							"        properties: {",
+							"            name: { type: \"string\" },",
+							"            job: { type: \"string\" },",
+							"            updatedAt: { type: \"string\", format: \"date-time\" }",
+							"        }",
+							"    });",
+							"});",
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains name and job\", () => {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"name\", \"Kholil Akhmad\");",
+							"    pm.expect(jsonData).to.have.property(\"job\", \"QA Engineer\");",
+							"});",
+							"",
+							"pm.test(\"UpdatedAt is a valid timestamp\", () => {",
+							"    const jsonData = pm.response.json();",
+							"    const updatedAt = new Date(jsonData.updatedAt);",
+							"    pm.expect(updatedAt.toISOString()).to.equal(jsonData.updatedAt);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Kholil Akhmad\",\n    \"job\": \"QA Engineer\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://reqres.in/api/users/2"
+			},
+			"response": []
+		}
+	]
+}
