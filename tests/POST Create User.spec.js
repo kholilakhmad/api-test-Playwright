@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const Ajv = require('ajv');
 
-test.describe('API Response Validation - POST Request', () => {
+test.describe('API Response Validation - POST Create User', () => {
   test('Validate response schema, fields, and values', async ({ request }) => {
     // Send POST request
     const response = await request.post('https://reqres.in/api/users', {

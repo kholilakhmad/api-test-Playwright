@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const Ajv = require('ajv');
 
-test.describe('API Response Validation', () => {
+test.describe('API Response Validation Get List Users', () => {
   test('Validate API response and schema', async ({ request }) => {
     // Send GET request
     const response = await request.get('https://reqres.in/api/users?page=2');
